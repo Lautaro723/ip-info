@@ -1,0 +1,28 @@
+PWD=$(pwd)
+source $PWD/colores.sh
+ip=$1
+response=$(curl -s "https://ipapi.co/$ip/json/")
+country=$(echo $response | jq -r '.country_name')
+        region=$(echo $response | jq -r '.region')
+        city=$(echo $response | jq -r '.city')
+        latitude=$(echo $response | jq -r '.latitude')
+        longitude=$(echo $response | jq -r '.longitude')
+        postal=$(echo $response | jq -r '.postal')
+clear
+        echo -e "
+$verde┌══════════════════════════════════════════════┐
+$verde┃${azul} Datos obtenidos dirección IP${cyan} $ip ${verde} ┃
+$verde└══════════════════════════════════════════════┘
+$verde ┃
+$verde └══>$azul pais:$cyan $country
+$verde ┃
+$verde └══>$azul region:$cyan $region
+$verde ┃
+$verde └══>$azul cyudad:$cyan $city
+$verde ┃
+$verde └══>$azul codigo postal: $cyan $postal
+$verde ┃
+$verde └══>$azul Latitud:$cyan $longitude
+$verde ┃
+$verde └══>$azul Longitud:$cyan $longitude
+"
